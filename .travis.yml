@@ -4,4 +4,4 @@ go:
   - 1.x
 
 script:
-  - go test linkedlist_test.go stack_test.go
+  - go test
