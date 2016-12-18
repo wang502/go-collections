@@ -1,11 +1,11 @@
-package data_structure
+package stack
 
 import "testing"
-import "github.com/wang502/go-tour/data_structure"
 
+const iterations = 100
 
 func testPushPop(t *testing.T){
-  s := data_structure.NewStack()
+  s := NewStack()
   for i:=0; i<iterations; i++{
     s.Push(i)
   }

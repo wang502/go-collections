@@ -1,12 +1,12 @@
-package data_structure
+package linkedlist
 
 import "testing"
-import "github.com/wang502/go-tour/data_structure"
+//import "github.com/wang502/go-collections/linkedlist"
 
 const iterations = 100
 
 func TestAdd(t *testing.T){
-  ll := data_structure.NewLinkedList()
+  ll := NewLinkedList()
   for i:=0; i<iterations; i++{
     ll.Add(i)
   }
@@ -16,7 +16,7 @@ func TestAdd(t *testing.T){
 }
 
 func TestSearch(t *testing.T){
-  ll := data_structure.NewLinkedList()
+  ll := NewLinkedList()
   for i:=0; i<iterations; i++{
     ll.Add(i)
   }
@@ -28,7 +28,7 @@ func TestSearch(t *testing.T){
 }
 
 func TestReverse(t *testing.T){
-  ll := data_structure.NewLinkedList()
+  ll := NewLinkedList()
   for i:= 0; i<iterations; i++{
     ll.Add(i)
   }

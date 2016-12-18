@@ -1,4 +1,4 @@
-package data_structure
+package tree
 
 import "fmt"
 
