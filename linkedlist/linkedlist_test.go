@@ -1,15 +1,49 @@
 package linkedlist
 
-import "testing"
-//import "github.com/wang502/go-collections/linkedlist"
+import("testing"
+       "strconv"
+       "strings"
+      )
 
-const iterations = 100
+const iterations = 10
 
-func TestAdd(t *testing.T){
+func TestAddTail(t *testing.T){
   ll := NewLinkedList()
   for i:=0; i<iterations; i++{
-    ll.Add(i)
+    ll.AddTail(i)
   }
+
+  s := ll.String()
+  res := ""
+  for i:=0; i<iterations; i++{
+    res += strconv.Itoa(i) + "->"
+  }
+  res += "None\n"
+  if strings.Compare(s, res) != 0{
+    t.Errorf("Linked List expected to contain every added elements, but not")
+  }
+
+  if ll.Size() != iterations{
+    t.Errorf("Linked List size expected to be %d, but is %d", iterations, ll.Size())
+  }
+}
+
+func TestAddHead(t *testing.T){
+  ll := NewLinkedList()
+  for i:=0; i<iterations; i++{
+    ll.AddHead(i)
+  }
+
+  s := ll.String()
+  res := ""
+  for i:=iterations-1; i>-1; i--{
+    res += strconv.Itoa(i) + "->"
+  }
+  res += "None\n"
+  if strings.Compare(s, res) != 0{
+    t.Errorf("Linked List expected to contain every added elements, but not")
+  }
+
   if ll.Size() != iterations{
     t.Errorf("Linked List size expected to be %d, but is %d", iterations, ll.Size())
   }
@@ -18,7 +52,7 @@ func TestAdd(t *testing.T){
 func TestSearch(t *testing.T){
   ll := NewLinkedList()
   for i:=0; i<iterations; i++{
-    ll.Add(i)
+    ll.AddTail(i)
   }
   for j:=0; j<iterations; j++{
     if !ll.Search(j){
@@ -30,7 +64,7 @@ func TestSearch(t *testing.T){
 func TestReverse(t *testing.T){
   ll := NewLinkedList()
   for i:= 0; i<iterations; i++{
-    ll.Add(i)
+    ll.AddTail(i)
   }
   ll.Reverse()
   cur := ll.Head

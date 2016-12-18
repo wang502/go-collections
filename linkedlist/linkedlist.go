@@ -1,8 +1,9 @@
 package linkedlist
 
-import "fmt"
-import "errors"
-import "strconv"
+import("fmt"
+       "errors"
+       "strconv"
+)
 
 type Node struct{
   Val int
@@ -20,7 +21,7 @@ func NewLinkedList() *LinkedList{
   return &LinkedList{nil, nil, 0}
 }
 
-func (list *LinkedList) Add(val int) *LinkedList{
+func (list *LinkedList) AddTail(val int) *LinkedList{
   newNode := &Node{val, list.Tail, nil}
   if list.Tail != nil{
     list.Tail.Next = newNode
@@ -28,6 +29,18 @@ func (list *LinkedList) Add(val int) *LinkedList{
     list.Head = newNode
   }
   list.Tail = newNode
+  list.Length += 1
+  return list
+}
+
+func (list *LinkedList) AddHead(val int) *LinkedList{
+  newNode := &Node{val, nil, list.Head}
+  if list.Head == nil{
+    list.Tail = newNode
+  } else{
+    list.Head.Prev = newNode
+  }
+  list.Head = newNode
   list.Length += 1
   return list
 }
@@ -65,20 +78,6 @@ func (list *LinkedList) Delete(node *Node) (*LinkedList, error){
   return list, nil
 }
 
-func (list *LinkedList) Print(){
-  res := ""
-  if list == nil{
-    fmt.Println(res)
-  }
-  cur := list.Head
-  for cur != nil{
-    res += strconv.Itoa(cur.Val) + "->"
-    cur = cur.Next
-  }
-  res += "None\n"
-  fmt.Println(res)
-}
-
 func (list *LinkedList) Search(val int) bool{
   cur := list.Head
   for cur != nil{
@@ -109,22 +108,16 @@ func (list *LinkedList) Size() int{
   return list.Length
 }
 
-/*
-func main(){
-  ll := &LinkedList{nil, nil, 0}
-  ll.Add(1)
-  ll.Add(2)
-  ll.Add(3)
-  ll.Print()
-  ll.Delete(ll.Head.next)
-  ll.Print()
-
-  ll.Reverse()
-  ll.Print()
-
-  ll.Reverse()
-
-  ll2 := &LinkedList{nil, nil, 0}
-  ll2.Add(2)
-  ll2.Add(6)
-}*/
+func (list *LinkedList) String() string{
+  res := ""
+  if list == nil{
+    fmt.Println(res)
+  }
+  cur := list.Head
+  for cur != nil{
+    res += strconv.Itoa(cur.Val) + "->"
+    cur = cur.Next
+  }
+  res += "None\n"
+  return res
+}
