@@ -4,4 +4,4 @@ go:
   - 1.x
 
 script:
-  - go test ./linkedlist/ ./stack/
+  - go test ./linkedlist/ ./stack/ ./queue
