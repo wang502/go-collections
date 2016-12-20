@@ -39,5 +39,5 @@ func (queue *Queue) Top() interface{} {
 }
 
 func (queue *Queue) IsEmpty() bool {
-  return queue.Elements.Size() == 0
+    return queue.Elements.Size() == 0
 }
