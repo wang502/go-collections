@@ -6,7 +6,7 @@ import  (
     "strings"
 )
 
-const iterations = 10
+const iterations = 20
 
 type TestItem int
 
