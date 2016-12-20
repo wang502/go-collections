@@ -11,24 +11,24 @@ func NewStack() *Stack{
     return &Stack{ll}
 }
 
-func (stack *Stack) Push(val int) {
+func (stack *Stack) Push(val interface{}) {
     ll := stack.Elements
     ll.AddHead(val)
 }
 
-func (stack *Stack) Pop() int {
+func (stack *Stack) Pop() interface{} {
     size := stack.Elements.Size()
     if size == 0 {
-      return -1
+      return nil
     }
     ll := stack.Elements
     return ll.RemoveHead()
 }
 
-func (stack *Stack) Peek() int {
+func (stack *Stack) Peek() interface{} {
     size := stack.Elements.Size()
     if size == 0{
-      return -1
+      return nil
     }
     return stack.Elements.GetHead()
 }

@@ -2,11 +2,10 @@ package linkedlist
 
 import("fmt"
        "errors"
-       "strconv"
 )
 
 type Node struct{
-    Val int
+    Val interface{}
     Prev *Node
     Next *Node
 }
@@ -21,7 +20,7 @@ func NewLinkedList() *LinkedList{
     return &LinkedList{nil, nil, 0}
 }
 
-func (list *LinkedList) AddTail(val int) *LinkedList{
+func (list *LinkedList) AddTail(val interface{}) *LinkedList{
     newNode := &Node{val, list.Tail, nil}
     if list.Tail != nil{
       list.Tail.Next = newNode
@@ -33,9 +32,9 @@ func (list *LinkedList) AddTail(val int) *LinkedList{
     return list
 }
 
-func (list *LinkedList) RemoveTail() int{
+func (list *LinkedList) RemoveTail() interface{}{
     if list.Tail == nil{
-      return -1
+      return nil
     }
     res := list.Tail.Val
     list.Tail = list.Tail.Prev
@@ -48,7 +47,7 @@ func (list *LinkedList) RemoveTail() int{
     return res
 }
 
-func (list *LinkedList) AddHead(val int) *LinkedList{
+func (list *LinkedList) AddHead(val interface{}) *LinkedList{
     newNode := &Node{val, nil, list.Head}
     if list.Head == nil{
       list.Tail = newNode
@@ -60,7 +59,7 @@ func (list *LinkedList) AddHead(val int) *LinkedList{
     return list
 }
 
-func (list *LinkedList) RemoveHead() int{
+func (list *LinkedList) RemoveHead() interface{}{
     if list.Head == nil{
       return -1
     }
@@ -75,11 +74,11 @@ func (list *LinkedList) RemoveHead() int{
     return res
 }
 
-func  (list *LinkedList) GetHead() int{
+func  (list *LinkedList) GetHead() interface{}{
   if list.Head != nil{
     return list.Head.Val
   }
-  return -1
+  return nil
 }
 
 func (list *LinkedList) AddNode(node *Node) *LinkedList{
@@ -115,7 +114,7 @@ func (list *LinkedList) Delete(node *Node) (*LinkedList, error){
     return list, nil
 }
 
-func (list *LinkedList) Search(val int) bool{
+func (list *LinkedList) Search(val interface{}) bool{
     cur := list.Head
     for cur != nil{
       if cur.Val == val{
@@ -148,11 +147,11 @@ func (list *LinkedList) Size() int{
 func (list *LinkedList) String() string{
     res := ""
     if list == nil{
-      fmt.Println(res)
+      return "None"
     }
     cur := list.Head
     for cur != nil{
-      res += strconv.Itoa(cur.Val) + "->"
+      res += fmt.Sprint(cur.Val) + "->"
       cur = cur.Next
     }
     res += "None\n"
