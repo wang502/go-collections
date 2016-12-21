@@ -30,7 +30,7 @@ func swap(elements []Item, i int, j int)  {
 }
 
 func (heap *Heap) DecreaseKey(index int) {
-    for index>=0{
+    for index>=0 && heap.Elements[index].Compare(heap.Elements[parent(index)]) < 0{
         swap(heap.Elements, index, parent(index))
         index = parent(index)
     }
@@ -44,6 +44,7 @@ func (heap *Heap) ExtractMin() Item{
     size := len(heap.Elements)
     heap.Elements[0] = heap.Elements[size-1]
     heap.Elements = append(heap.Elements[:size-1])
+    heap.MinHeapify(0)
     return res
 }
 
