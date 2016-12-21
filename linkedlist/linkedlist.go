@@ -47,6 +47,21 @@ func (list *LinkedList) RemoveTail() interface{}{
     return res
 }
 
+func (list *LinkedList) PopTail() *Node {
+    if list.Tail == nil{
+      return nil
+    }
+    res := list.Tail
+    list.Tail = list.Tail.Prev
+    if list.Tail != nil{
+      list.Tail.Next = nil
+    } else{
+      list.Head = nil
+    }
+    list.Length -= 1
+    return res
+}
+
 func (list *LinkedList) AddHead(val interface{}) *LinkedList{
     newNode := &Node{val, nil, list.Head}
     if list.Head == nil{
@@ -74,6 +89,18 @@ func (list *LinkedList) RemoveHead() interface{}{
     return res
 }
 
+func (list *LinkedList) PushFront(node *Node) *LinkedList{
+  node.Next = list.Head
+  if list.Head == nil{
+      list.Tail = node
+  } else{
+      list.Head.Prev = node
+  }
+  list.Head = node
+  list.Length += 1
+  return list
+}
+
 func  (list *LinkedList) GetHead() interface{}{
   if list.Head != nil{
     return list.Head.Val
@@ -93,7 +120,7 @@ func (list *LinkedList) AddNode(node *Node) *LinkedList{
     return list
 }
 
-func (list *LinkedList) Delete(node *Node) (*LinkedList, error){
+func (list *LinkedList) Detach(node *Node) (*LinkedList, error){
     if list.Size() == 0{
       return list, errors.New("Linked list is empty")
     }

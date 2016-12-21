@@ -5,7 +5,8 @@
 Collections library implemented in Go. These are data structures I implemented to get myself familiar with Golang
 
 ### Data Structure Implemented
-- Linked List
-- Stack
 - Binary Tree
+- Linked List
 - Heap
+- LRU Cache
+- Stack

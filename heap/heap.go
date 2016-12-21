@@ -10,7 +10,7 @@ type Heap struct {
 }
 
 func NewHeap() *Heap {
-    elements := make([]Item, 10)
+    elements := make([]Item, 0)
     return &Heap{elements}
 }
 
@@ -30,7 +30,7 @@ func swap(elements []Item, i int, j int)  {
 }
 
 func (heap *Heap) DecreaseKey(index int) {
-    for index>=0 && heap.Elements[index].Compare(heap.Elements[parent(index)]) < 0{
+    for index>=0 && parent(index) >= 0 && heap.Elements[index].Compare(heap.Elements[parent(index)]) < 0{
         swap(heap.Elements, index, parent(index))
         index = parent(index)
     }

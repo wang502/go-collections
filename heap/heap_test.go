@@ -25,7 +25,7 @@ func (t_item TestItem) String() string {
     return strconv.Itoa(int(t_item))
 }
 
-func testInsert(t *testing.T){
+func TestInsert(t *testing.T){
     heap := NewHeap()
     for i:=iterations-1; i>-1; i--{
       heap.Insert(TestItem(i))
@@ -35,7 +35,7 @@ func testInsert(t *testing.T){
     }
 }
 
-func testExtractMin(t *testing.T){
+func TestExtractMin(t *testing.T){
     heap := NewHeap()
     for i:=iterations-1; i>-1; i--{
       heap.Insert(TestItem(i))
@@ -54,7 +54,7 @@ func testExtractMin(t *testing.T){
     }
 }
 
-func testItems(t *testing.T){
+func TestItems(t *testing.T){
   heap := NewHeap()
   for i:=iterations-1; i>-1; i--{
     heap.Insert(TestItem(i))

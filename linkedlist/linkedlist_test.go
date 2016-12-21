@@ -41,6 +41,20 @@ func TestRemoveTail(t *testing.T){
     }
 }
 
+func TestPopTail(t *testing.T){
+    ll := NewLinkedList()
+    for i:=0; i<iterations; i++{
+        ll.AddTail(i)
+    }
+
+    for i:=iterations-1; i>-1; i--{
+        tail := ll.PopTail()
+        if tail != nil && tail.Val != i{
+            t.Errorf("Linked List PopTail() expected to return node with value %d, but returned %d instead", i, tail.Val)
+        }
+    }
+}
+
 func TestAddHead(t *testing.T){
     ll := NewLinkedList()
     for i:=0; i<iterations; i++{
@@ -72,6 +86,19 @@ func TestRemoveHead(t *testing.T){
       if e:= ll.RemoveHead(); e != i{
           t.Errorf("Linked List RemoveHead() expected to return %d, but is %d", i, e)
       }
+    }
+}
+
+func TestPushFront(t *testing.T)  {
+    ll := NewLinkedList()
+    for i:=0; i<iterations; i++{
+      ll.AddTail(i)
+    }
+
+    ll.PushFront(&Node{100, nil, nil})
+
+    if hv := ll.Head.Val; hv != 100{
+        t.Errorf("Linked List PushFront() expected to push %d to the head, but %d is head instead", 100, hv)
     }
 }
 
