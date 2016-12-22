@@ -53,7 +53,38 @@ func (lru *LRU) RemoveOldest(){
     return
 }
 
+func (lru *LRU) Get(key interface{}) interface{} {
+    node, ok := lru.Map[key]
+    var item Item
+    if !ok{
+        return item
+    }
+    item = node.Val.(Item)
+    lru.Items.Detach(node)
+    lru.Items.PushFront(node)
+    return item.Value
+}
+
 func (lru *LRU) Contains(key interface{}) bool {
     _, ok := lru.Map[key]
     return ok
+}
+
+func (lru *LRU) Peek() Item{
+    head := lru.Items.GetHead()
+    return head.Val.(Item)
+}
+
+func (lru *LRU) Keys() []interface{}{
+    keys := make([]interface{}, lru.Size())
+    i := 0
+    for node := lru.Items.GetHead(); node != nil; node = node.Next {
+        keys[i] = node.Val.(Item).Value
+        i += 1
+    }
+    return keys
+}
+
+func (lru *LRU) Size() int {
+    return lru.Items.Size()
 }

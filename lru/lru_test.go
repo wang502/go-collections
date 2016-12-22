@@ -30,3 +30,34 @@ func TestAdd(t *testing.T){
         }
     }
 }
+
+func TestGet(t *testing.T){
+    lru := NewLRU(iterations)
+    for i:=0; i<iterations; i++{
+        lru.Add(i, i)
+    }
+
+    for i:=0; i<iterations; i++{
+        val := lru.Get(i)
+        if val != lru.Peek().Value{
+            t.Errorf("LRU Get() expected to place the item to head, but did not")
+        }
+    }
+}
+
+func TestKeys(t *testing.T){
+    lru := NewLRU(iterations)
+    for i:=0; i<iterations; i++{
+        lru.Add(i, i)
+    }
+
+    keys := lru.Keys()
+
+    i:=0
+    for j:=iterations-1; j>-1; j--{
+        if keys[j] != i{
+            t.Errorf("LRU Keys() order not correct")
+        }
+        i += 1
+    }
+}

@@ -101,9 +101,9 @@ func (list *LinkedList) PushFront(node *Node) *LinkedList{
   return list
 }
 
-func  (list *LinkedList) GetHead() interface{}{
+func  (list *LinkedList) GetHead() *Node{
   if list.Head != nil{
-    return list.Head.Val
+    return list.Head
   }
   return nil
 }
