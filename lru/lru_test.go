@@ -52,6 +52,20 @@ func TestGet(t *testing.T){
     }
 }
 
+func TestRemove(t *testing.T){
+    lru := NewLRU(iterations)
+    for i:=0; i<iterations; i++{
+        lru.Add(i, i)
+    }
+
+    for i:=0; i<iterations; i++{
+        lru.Remove(i)
+        if lru.Contains(i){
+            t.Errorf("LRU Remove() expected to remove %d, but did not", i)
+        }
+    }
+}
+
 func TestKeys(t *testing.T){
     lru := NewLRU(iterations)
     for i:=0; i<iterations; i++{

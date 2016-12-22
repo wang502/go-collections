@@ -44,16 +44,6 @@ func (lru *LRU) Add(key interface{}, value interface{}) bool{
     return true
 }
 
-func (lru *LRU) RemoveOldest(){
-    oldest := lru.Items.PopTail()
-    if oldest == nil{
-        return
-    }
-    key := oldest.Val.(*Item).Key
-    delete(lru.Map, key)
-    return
-}
-
 func (lru *LRU) Get(key interface{}) interface{} {
     node, ok := lru.Map[key]
     var item *Item
@@ -64,6 +54,25 @@ func (lru *LRU) Get(key interface{}) interface{} {
     lru.Items.Detach(node)
     lru.Items.PushFront(node)
     return item.Value
+}
+
+func (lru *LRU) Remove(key interface{}) bool {
+    node, bool := lru.Map[key]
+    if !bool{
+        return false
+    }
+    lru.Items.Detach(node)
+    delete(lru.Map, key)
+    return true
+}
+func (lru *LRU) RemoveOldest(){
+    oldest := lru.Items.PopTail()
+    if oldest == nil{
+        return
+    }
+    key := oldest.Val.(*Item).Key
+    delete(lru.Map, key)
+    return
 }
 
 func (lru *LRU) Contains(key interface{}) bool {
