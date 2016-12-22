@@ -29,11 +29,12 @@ func (lru *LRU) Add(key interface{}, value interface{}) bool{
     if ent, ok := lru.Map[key]; ok{
         lru.Items.Detach(ent)
         lru.Items.PushFront(ent)
-        ent.Val = value
+        ent.Val.(*Item).Value = value
+        //fmt.Printf("v:%d", ent.Val.(*Item).Value)
         return false
     }
 
-    newItem := &linkedlist.Node{Item{key, value}, nil, nil}
+    newItem := &linkedlist.Node{&Item{key, value}, nil, nil}
     lru.Items.PushFront(newItem)
     lru.Map[key] = newItem
 
@@ -48,18 +49,18 @@ func (lru *LRU) RemoveOldest(){
     if oldest == nil{
         return
     }
-    key := oldest.Val.(Item).Key
+    key := oldest.Val.(*Item).Key
     delete(lru.Map, key)
     return
 }
 
 func (lru *LRU) Get(key interface{}) interface{} {
     node, ok := lru.Map[key]
-    var item Item
+    var item *Item
     if !ok{
-        return item
+        return nil
     }
-    item = node.Val.(Item)
+    item = node.Val.(*Item)
     lru.Items.Detach(node)
     lru.Items.PushFront(node)
     return item.Value
@@ -72,14 +73,15 @@ func (lru *LRU) Contains(key interface{}) bool {
 
 func (lru *LRU) Peek() Item{
     head := lru.Items.GetHead()
-    return head.Val.(Item)
+    p_item := head.Val.(*Item)
+    return *p_item
 }
 
 func (lru *LRU) Keys() []interface{}{
     keys := make([]interface{}, lru.Size())
     i := 0
     for node := lru.Items.GetHead(); node != nil; node = node.Next {
-        keys[i] = node.Val.(Item).Value
+        keys[i] = node.Val.(*Item).Value
         i += 1
     }
     return keys

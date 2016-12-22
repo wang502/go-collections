@@ -29,6 +29,13 @@ func TestAdd(t *testing.T){
             t.Errorf("LRU expected to have exivted %d", i)
         }
     }
+
+    // test duplicate key
+    lru.Add(iterations-1, 100)
+    v := lru.Get(iterations-1)
+    if v != 100 {
+        t.Errorf("LRU Add() did not update value of existing key %d", iterations-1)
+    }
 }
 
 func TestGet(t *testing.T){

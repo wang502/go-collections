@@ -24,4 +24,7 @@ func main(){
     fmt.Printf("Head value is %d after inserting {'4':4}\n", peek3.Value)
 
     fmt.Printf("LRU current size is %d\n", lru.Size())
+
+    lru.Add("4", 40)
+    fmt.Printf("Value of Key '4' is updated to be %d\n", lru.Get("4"))
 }
