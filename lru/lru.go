@@ -22,7 +22,11 @@ func NewLRU(size int) *LRU{
         return nil
     }
     ll := linkedlist.NewLinkedList()
-    return &LRU{ll, make(map[interface{}]*linkedlist.Node), size}
+    return &LRU{
+              Items: ll,
+              Map: make(map[interface{}]*linkedlist.Node),
+              MAX_SIZE: size,
+            }
 }
 
 func (lru *LRU) Add(key interface{}, value interface{}) bool{
